@@ -1,0 +1,45 @@
+%YAML:1.0
+---
+# 神符数据
+BuffPara:
+   # RED板灯red  channel最小灰度值
+   minLightBarGray_RED_R: 220
+   # RED板灯Green channel最小灰度值
+   minLightBarGray_RED_G: 100
+   # BLUE板灯red channel最小灰度值
+   minLightBarGray_BLUE_R: 30
+   # BLUE板灯Green channel最小灰度值
+   minLightBarGray_BLUE_G: 150
+   # 最小轮廓尺寸
+   minLightBarSize: 15
+   # 最大轮廓尺寸
+   maxLightBarSize: 200
+   # 红色灰度二值化阈值
+   grayThreshold_RED: 60
+   # 蓝色灰度二值化阈值
+   grayThreshold_BLUE: 100
+   # 红色色彩分离二值化阈值
+   separationThreshold_RED: 40
+   # 蓝色色彩分离二值化阈值
+   separationThreshold_BLUE: 100
+paraCircle:
+   # 圆心角度
+   armorAngleBias: 5.
+   # 最小距离
+   minToArmorDistance: 220.
+   # 最大距离
+   maxToArmorDistance: 600.
+   # 最小面积
+   minArea: 80.
+   # 最大面积
+   maxArea: 400.
+   # 最小长宽比
+   minLengthWidthRatio: 6.9999998807907104e-01
+   # 最大长款此
+   maxLengthWidthRatio: 1.5000000000000000e+00
+   # 神符预判角度
+   buffPredictAngle: 25.
+   # 神符偏差
+   buffRadBias: 2.
+   # 悬臂真实长度
+   realCantileverLength: 730.

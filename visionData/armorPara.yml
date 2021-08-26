@@ -1,0 +1,29 @@
+%YAML:1.0
+---
+# 装甲板识别数据
+armorPara:
+   # 最小的灯条面积
+   minLightBarArea: 20
+   # 最小的灯条长度
+   minLightBarLength: 8
+   # 最小的灯条宽度
+   minLightBarWidth: 2
+   # 最大灯条长度
+   maxLightBarLength: 200
+   # 最大灯条宽度
+   maxLightBarWidth: 50
+   # 容许的最大角度差
+   maxErrorAngle: 15.
+   # 灰度二值化阈值-紫色
+   grayThreshold_PURPLE: 150
+   # 灰度二值化阈值-红色
+   grayThreshold_RED: 100
+   # 色彩分离二值化阈值-红色
+   separationThreshold_RED: 80
+   # 灰度二值化阈值-蓝色
+   grayThreshold_BLUE: 100
+   # 色彩分离二值化阈值-蓝色
+   separationThreshold_BLUE: 80
+   # 色彩分离二值化阈值-绿色
+   separationThreshold_GREEN: 10
+

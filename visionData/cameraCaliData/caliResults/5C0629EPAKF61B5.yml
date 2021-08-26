@@ -1,0 +1,11 @@
+%YAML:1.0
+---
+IntrinsicParameters_fx: 1.7394281005859375e+03
+IntrinsicParameters_fy: 1.7374576416015625e+03
+IntrinsicParameters_u0: 9.5023028564453125e+02
+IntrinsicParameters_v0: 5.6957312011718750e+02
+DistortionFactor_k1: -1.0318222641944885e-01
+DistortionFactor_k2: 8.9038163423538208e-02
+DistortionFactor_p1: -1.5614941949024796e-03
+DistortionFactor_p2: 2.6444280520081520e-03
+DistortionFactor_k3: 7.3906338214874268e-01

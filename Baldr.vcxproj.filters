@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Src">
+      <UniqueIdentifier>{904f035f-7cef-4700-8e5f-b1f31d1a9f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\angle">
+      <UniqueIdentifier>{9693f6e2-c28f-4e10-9434-42c4aa76d4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\armor">
+      <UniqueIdentifier>{833a449b-b8dc-4127-8778-d8d1e0273907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\buff">
+      <UniqueIdentifier>{c2540cc1-5627-4de5-a5f7-415f169f3708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\camera">
+      <UniqueIdentifier>{0b23deae-4ba7-4ddc-9b7d-61614277b7f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\decisionLevel">
+      <UniqueIdentifier>{2b8b403c-b9c5-42d2-adca-ba05fc8a6cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\serial">
+      <UniqueIdentifier>{f979c7c6-edd2-418a-bd01-e06cccb8a961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\tool">
+      <UniqueIdentifier>{0a7b66e7-4afa-401d-a767-e70871f09477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\angle\CoordinateSolver">
+      <UniqueIdentifier>{ef461f16-685a-48b6-8b7d-50203436222a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\angle\PNP">
+      <UniqueIdentifier>{f6856bda-11f4-4dd7-b180-e9444a62b584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\armor\bpPredict">
+      <UniqueIdentifier>{ff98ea4c-7af6-4e08-b75d-4b08127e4abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\camera\calibration">
+      <UniqueIdentifier>{17c08dea-e5cd-47aa-af0d-782bd3bb4061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\angle\KalmanPredict">
+      <UniqueIdentifier>{e5dc0799-fa56-4c39-9ffa-2dd16bf3437d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\angle\CoordinateSolver\ArmorCoordinateSolver.cpp">
+      <Filter>Src\angle\CoordinateSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\angle\PNP\PNPSolver.cpp">
+      <Filter>Src\angle\PNP</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\angle\angleFactory.cpp">
+      <Filter>Src\angle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\armor\armorDistinguish.cpp">
+      <Filter>Src\armor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\armor\bpPredict\net.cpp">
+      <Filter>Src\armor\bpPredict</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\buff\buffDistinguish.cpp">
+      <Filter>Src\buff</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\camera\modifyCamera.cpp">
+      <Filter>Src\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\camera\streamRetrieve.cpp">
+      <Filter>Src\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\camera\calibration\cameraCalibration.cpp">
+      <Filter>Src\camera\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\decisionLevel\decisionLevel.cpp">
+      <Filter>Src\decisionLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\tool\autoSaveSample.cpp">
+      <Filter>Src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\tool\fileOperation.cpp">
+      <Filter>Src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\serial\serial.cpp">
+      <Filter>Src\serial</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\buff\buffTest.cpp">
+      <Filter>Src\buff</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\angle\CoordinateSolver\BuffCoordinateSolver.cpp">
+      <Filter>Src\angle\CoordinateSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\angle\KalmanPredict\KalmanPredict.cpp">
+      <Filter>Src\angle\KalmanPredict</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\angle\CoordinateSolver\ArmorCoordinateSolver.h">
+      <Filter>Src\angle\CoordinateSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\angle\PNP\PNPSolver.h">
+      <Filter>Src\angle\PNP</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\angle\angleFactory.h">
+      <Filter>Src\angle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\armor\armorDistinguish.h">
+      <Filter>Src\armor</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\armor\bpPredict\net.h">
+      <Filter>Src\armor\bpPredict</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\buff\buffDistinguish.h">
+      <Filter>Src\buff</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\camera\modifyCamera.h">
+      <Filter>Src\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\camera\streamRetrieve.h">
+      <Filter>Src\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\camera\calibration\cameraCalibration.h">
+      <Filter>Src\camera\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\decisionLevel\decisionLevel.h">
+      <Filter>Src\decisionLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\autoSaveSample.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\Conf.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\fileOperation.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\PointUtil.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\RMDefine.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\RMLOG.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\tool\systemChoose.h">
+      <Filter>Src\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\serial\CRC.h">
+      <Filter>Src\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\serial\serial.h">
+      <Filter>Src\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\buff\buffTest.h">
+      <Filter>Src\buff</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\angle\CoordinateSolver\BuffCoordinateSolver.h">
+      <Filter>Src\angle\CoordinateSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\angle\KalmanPredict\KalmanPredict.h">
+      <Filter>Src\angle\KalmanPredict</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+%YAML:1.0
+---
+# 相机设置
+# 
+# 
+# 识别装甲板相机参数
+ArmorCameraConfiguration:
+   gainValue: 3.
+   exposureValue: 5000
+   gammaValue: 1.
+# 
+# 
+# 识别神符相机参数
+BuffCameraConfiguration:
+   gainValue: 3.
+   exposureValue: 5000
+   gammaValue: 1.

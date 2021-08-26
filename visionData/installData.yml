@@ -1,0 +1,98 @@
+%YAML:1.0
+---
+# 
+# 
+# 步兵安装参数
+Infantry:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: -5.6500000000000000e+01
+   PTZToCameraBias_y: 4.3240001678466797e+01
+   PTZToCameraBias_z: -9.8199996948242188e+01
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -6.6599998474121094e+01
+# 
+# 
+# 老英雄安装参数
+OldHero:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: 0
+   PTZToCameraBias_y: 8.9500000000000000e+01
+   PTZToCameraBias_z: -1.3321000366210938e+02
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -1.3994000244140625e+02
+# 
+# 
+# 新英雄安装参数
+NewHero:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: 0
+   PTZToCameraBias_y: -6.9500000000000000e+01
+   PTZToCameraBias_z: -1.3321000366210938e+02
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -1.1476000213623047e+02
+# 
+# 
+# 老哨兵下云台安装参数
+OldSentinelBelow:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: 0.
+   PTZToCameraBias_y: 4.1400001525878906e+01
+   PTZToCameraBias_z: 4.3259998321533203e+01
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -1.4039999961853027e+01
+# 
+# 
+# 老哨兵上云台安装参数
+OldSentinelAbove:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: -56.5
+   PTZToCameraBias_y: 48.08
+   PTZToCameraBias_z: -34.26
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -55.84
+# 
+# 
+# 新哨兵下云台安装参数
+NewSentinelBelow:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: -5.6500000000000000e+01
+   PTZToCameraBias_y: 4.3500000000000000e+01
+   PTZToCameraBias_z: -3.8459999084472656e+01
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -7.5069999694824219e+01
+# 
+# 
+# 新哨兵上云台安装参数
+NewSentinelAbove:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: -5.6500000000000000e+01
+   PTZToCameraBias_y: 48.08
+   PTZToCameraBias_z: -34.26
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 0.
+   PTZToBarrelBias_z: -55.84
+# 
+# 
+# 飞机安装参数
+Plane:
+   # 云台中心到相机中心三方向上的偏差
+   PTZToCameraBias_x: 0.
+   PTZToCameraBias_y: 6.5300003051757812e+01
+   PTZToCameraBias_z: -1.1965000152587891e+02
+   # 云台中心到炮管出弹口中心三方向上的偏差
+   PTZToBarrelBias_x: 0.
+   PTZToBarrelBias_y: 1.2999999523162842e-01
+   PTZToBarrelBias_z: -1.1333000183105469e+02

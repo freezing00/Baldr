@@ -1,0 +1,12 @@
+%YAML:1.0
+---
+# 代码设置
+# 
+# Linux下显示图像
+useDebugGuiFlag: 0
+# 代码运行时录像
+takePictureFlag: 0
+# 自动曝光的平均灰度
+grayAverage: 20
+# 0:停止保存 1:自动保存  默认:0
+useAutoSaveSampleMode: 0

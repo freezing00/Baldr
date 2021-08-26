@@ -1,0 +1,20 @@
+%YAML:1.0
+---
+# 装甲板实际大小数据
+# 
+# 小装甲板数据
+SmallArmor:
+   length: 130.
+   width: 55.
+# 大装甲板数据
+BigArmor:
+   length: 225.
+   width: 55.
+# 神符装甲板数据
+BuffArmor:
+   length: 245.
+   width: 137.
+# 圆心R数据
+R_Armor:
+   length: 60.
+   width: 60.

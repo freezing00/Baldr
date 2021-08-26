@@ -1,0 +1,37 @@
+%YAML:1.0
+---
+# 新版神符数据
+NewBuffPara:
+   # 灰度图阈值
+   grayThresholdValue: 80.
+   # 通道图阈值
+   channelThresholdValue: 60.
+   # 单通道图膨胀迭代次数
+   singleIterations: 1
+   # 二值图膨胀迭代次数
+   binMatIterations: 2
+   # 装甲板长宽比上限
+   armorSideRatio_MAX: 4.1999998092651367e+00
+   # 装甲板长宽比下限
+   armorSideRatio_MIN: 1.3999999761581421e+00
+   # 装甲板边长上限
+   armorTo_R_SizeRatio_MAX: 9.
+   # 装甲板边长下限
+   armorTo_R_SizeRatio_MIN: 1.5000000000000000e+00
+   # 装甲板与R中心距离上限
+   armorTo_R_DistanceRatio_MAX: 11.
+   # 装甲板与R中心距离下限
+   armorTo_R_DistanceRatio_MIN: 6.
+   # 长边ROI比例
+   longSideRatioForROI: 2.
+   # 短边ROI比例
+   shortSideRatioForROI: 8.0000001192092896e-01
+   # 目标装甲板缩小比例
+   targetSizeRadio: 8.0000001192092896e-01
+R_Para:
+   # 类正方形长宽比限制
+   squreSideRatio: 1.5000000000000000e+00
+   # 方形轮廓面积上限
+   squreSizeLimit_MAX: 160.
+   # 方形轮廓面积下限
+   squreSizeLimit_MIN: 12.

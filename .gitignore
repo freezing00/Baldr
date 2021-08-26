@@ -1,32 +1,42 @@
-# Prerequisites
-*.d
+﻿#自动保存的样本数据
+/trainData/armor
+/trainData/buff
+/trainData/circle
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#自动录制的视频和照片
+/visionData/debugImg
+/visionData/imgSave
+/visionData/AVISave
 
-# Precompiled Headers
-*.gch
-*.pch
+#相机标定用图
+/visionData/cameraCaliData/caliPattern
+/visionData/cameraCaliData/caliRepairImg
+/visionData/cameraCaliData/**/*.txt
+/visionData/cameraCaliData/caliResults/calibCameraData.yml
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+#相机配置
+SDKLOG_default.properties
+#日志
+/log
 
-# Fortran module files
-*.mod
-*.smod
+#VS编译文件
+.vs
+/x64
+/tools/SVM/x64
+/build/Baldr.*
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+#QT编译文件
+*.pro.user
+*.pro.user.*
+/build/*.o
+.qmake.stash
+Baldr
+Makefile
+nohup.out
 
-# Executables
+#Cmake编译文件
+cmake-build-debug
+cmake-build-release
+.idea
+*.exe.manifest
 *.exe
-*.out
-*.app
