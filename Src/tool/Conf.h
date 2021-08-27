@@ -18,11 +18,11 @@ struct ArmorPara {
     int maxLightBarLength = 200;
     int maxLightBarWidth = 50;
     float maxErrorAngle = 15;
-    int grayThreshold_PURPLE = 50;
-    int grayThreshold_RED = 90;
-    int separationThreshold_RED = 100;
-    int grayThreshold_BLUE = 90;
-    int separationThreshold_BLUE = 165;
+    int grayThreshold_PURPLE = 150;
+    int grayThreshold_RED = 100;
+    int separationThreshold_RED = 80;
+    int grayThreshold_BLUE = 160;
+    int separationThreshold_BLUE = 80;
     int separationThreshold_GREEN = 10;
 };
 

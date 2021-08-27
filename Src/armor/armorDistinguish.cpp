@@ -125,7 +125,7 @@ void ArmorDistinguish::imagePreprocess(const cv::Mat& src, EnemyColor enemyColor
         //cv::morphologyEx(_maxColor, _maxColor, cv::MORPH_OPEN, Util::structuringElement3());
     }
     else {
-        cv::threshold(splitSrc[2], _purpleSrc, _para.grayThreshold_PURPLE, 255, cv::THRESH_BINARY);
+        cv::threshold(splitSrc[2], _purpleSrc, _para.grayThreshold_PURPLE, 255, cv::THRESH_BINARY);                 //防止误识别紫色基地
         cv::bitwise_not(_purpleSrc, _purpleSrc);
         //敌方为蓝色
         cv::threshold(_graySrc, _graySrc, _para.grayThreshold_BLUE, 255, cv::THRESH_BINARY);                        //灰度二值化

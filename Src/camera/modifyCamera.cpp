@@ -246,13 +246,5 @@ void ModifyCamera::modifyCameraInit(Dahua::GenICam::ICameraPtr &cameraSptr) {
     modifyCameraSharpnessAuto(cameraSptr);
     //从文件读入gamma和gain
     modifyCameraAutoSetFromFile(cameraSptr);
-
-    Dahua::GenICam::IAcquisitionControlPtr sptrAcquisitionControl = Dahua::GenICam::CSystem::getInstance().createAcquisitionControl(cameraSptr);
-    double exposureTimeValue = 0.0;
-    Dahua::GenICam::CDoubleNode exposureTime = sptrAcquisitionControl->exposureTime();
-    exposureTime.getValue(exposureTimeValue);
-    exposureTime.setValue(1000.0f);
-    exposureTime.getValue(exposureTimeValue);
-    //std::cout << "exposureTimeValue:" << exposureTimeValue << std::endl;
 }
 

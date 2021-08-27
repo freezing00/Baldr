@@ -19,7 +19,7 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 #endif
-#define RECEIVE_SIZE 22
+#define RECEIVE_SIZE 18
 #define SEND_SIZE 16
 
 #define AT_PREVIOUS 0

@@ -21,7 +21,7 @@ armorPara:
    # 色彩分离二值化阈值-红色
    separationThreshold_RED: 80
    # 灰度二值化阈值-蓝色
-   grayThreshold_BLUE: 100
+   grayThreshold_BLUE: 160
    # 色彩分离二值化阈值-蓝色
    separationThreshold_BLUE: 80
    # 色彩分离二值化阈值-绿色

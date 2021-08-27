@@ -17,7 +17,7 @@
 ## 功能介绍
 
 此代码为桂林电子科技大学Evolution战队2021年的视觉识别代码，主要用于识别装甲板以及能量机关。在WIN64上测试，Ubuntu20.04上运行。
-本代码统一使用的大华工业相机分辨率1920*1200，帧率150、201，焦距8mm、12mm镜头
+本代码统一使用的大华工业相机分辨率1920*1200，帧率150，焦距8mm和12mm镜头
 
 ---
 
@@ -25,8 +25,8 @@
 
   1. 在WIN64上运行需要Visual Studio 2019，在Ubuntu上运行需要gcc。
   2. 需要安装OpenCV4.5.0
-  3. 需要安装大华相机驱动（MV viewer 2.2.6） [下载地址](http://download.huaraytech.com/pub/sdk/Ver2.2.6/)
-
+  3. 需要安装大华相机驱动（MV viewer 2.2.5） [下载地址](http://download.huaraytech.com/pub/sdk/Ver2.2.5/)
+  4. 解决方案配置使用Release
 ---
 
 ## 详细算法
@@ -61,13 +61,9 @@
 │  │  │  armorDistinguish.cpp				//装甲板识别
 │  │  │  armorDistinguish.h
 │  │  │  
-│  │  ├─bpPredict
-│  │  │      net.cpp
-│  │  │      net.h
-│  │  │      
-│  │  └─predict
-│  │          armorPredict.cpp				//装甲板预判
-│  │          armorPredict.h
+│  │  └─bpPredict
+│  │       net.cpp
+│  │       net.h
 │  │      
 │  ├─buff
 │  │      buffDistinguish.cpp				//能量机关识别
@@ -108,9 +104,7 @@
 ├─Tools                                 //工具文件夹
 │  │  autoPull.sh                       //自动代码更新脚本
 │  │  dog.sh                            //进程守护脚本
-│  │  Falcon.sh                         //强制退出代码脚本
-│  │  GUI.sh                            //图像界面关闭脚本
-│  │  load.sh                           //相机驱动加载脚本
+│  │  Baldr.sh                         //强制退出代码脚本
 │  └─SVM                                //SVM训练代码
 ├─trainData                             //机器学习训练结果
 │  │  
@@ -337,16 +331,13 @@ typedef struct{
 } Stm32CmdStruct;
 ```
 
-我们自定的通讯协议一共有 22 个字节
+我们自定的通讯协议一共有 18 个字节
 
-| Byte0      | Byte1      | Byte2      | Byte3      | Byte4      | Byte5      | Byte6      | Byte7      | Byte8 | Byte9 |
-| :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :---- | :---- |
-| 0xD4       | length     | CRC8       | cmd1       | carType    | speed      | pitch      | pitch      | pitch | pitch |
-| **Byte10** | **Byte11** | **Byte12** | **Byte13** | **Byte14**         | **Byte15**       | **Byte16**     
-| yaw            | yaw            | yaw            | yaw           | angularSpeed   | angularSpeed  | angularSpeed 
-| **Byte17**      |  **Byte18**  | **Byte19**| **Byte20**|**Byte21**|
- | angularSpeed  |CNTR            | CNTR        | CRC16      | CRC16      |
-
+| Byte0      | Byte1      | Byte2      | Byte3      | Byte4      | Byte5      | Byte6      | Byte7      | Byte8 |
+| :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :---- |
+| 0xD4       | length     | CRC8       | cmd1       | carType    | speed      | pitch      | pitch      | pitch |
+| **Byte9** | **Byte10** | **Byte11** | **Byte12** | **Byte13** | **Byte14**         | **Byte15**       | **Byte16** | **Byte17** |
+| pitch         | yaw            | yaw            | yaw            | yaw           | CNTR            | CNTR        | CRC16  | CRC16      |
 
 > * 0xD4：帧头 
 > * length：接收数据长度
@@ -357,7 +348,6 @@ typedef struct{
 > * speed：子弹射速
 > * pitch：惯导UKF解算pitch轴数据
 > * yaw：惯导UKF解算yaw轴数据
-> *angularSpeed：角速度
 > * CRC16：参与CRC16校验
 
 ### 3.数据发送结构体
@@ -378,11 +368,11 @@ typedef struct{
 
 我们自定的通讯协议一共有 16 个字节
 
-| Byte0      | Byte1      | Byte2      | Byte3      | Byte4      | Byte5      | Byte6      | Byte7      | Byte8      | Byte9      |
-| :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- |
-| 0xD4       | length     | CRC8       | cmd        |   yaw      |   yaw        | yaw         | yaw           | pitch          | pitch          |
-| **Byte10** | **Byte11** | **Byte12** | **Byte13** | **Byte14** | **Byte15** | **Byte16** | **Byte17** | **Byte18** | **Byte19** |
-| pitch          | pitch         | CNTR         | CNTR        | CRC16       | CRC16      |
+| Byte0      | Byte1      | Byte2      | Byte3      | Byte4      | Byte5      | Byte6      | Byte7      |
+| :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- | :--------- |
+| 0xD4       | length     | CRC8       | cmd        |   yaw      |   yaw        | yaw         | yaw           |
+| **Byte8** | **Byte9** | **Byte10** | **Byte11** | **Byte12** | **Byte13** | **Byte14** | **Byte15** |
+| pitch        | pitch         | pitch          | pitch         | CNTR         | CNTR        | CRC16       | CRC16      |
 > * 0xAD：帧头 
 > * cmd：控制Falg：包括同一目标Flag、锁定目标Flag，工作状态Flag
 > * CRC：参与CRC校验
@@ -393,7 +383,7 @@ typedef struct{
 
 | 功能 | 负责人 |  联系方式|
 | ------ | ------ | ------ |
-| 识别装甲板 | 谢祥平  | WeChat:sudo13330642377
+| 识别装甲板 | 谢祥平  | WeChat:13330642377
 | 装甲板预判打击 | 李承蒙  | qq:1059505781 WeChat:wxid_psnjdfzd0w6f12
 | 能量机关识别 | 高万禄  | qq:2209120827 WeChat:WanluGao
 | 能量机关预判 代码架构 | 梁睿哲  | qq:1473742892 WeChat:lrz1473742892
