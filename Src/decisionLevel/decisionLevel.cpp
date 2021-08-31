@@ -218,6 +218,8 @@ void DecisionLevel::threadProcUseTestVideo() {
                 case TX2_STOP:
                     break;
                 case TX2_DISTINGUISH_ARMOR:
+                    armorDistinguishProcess(frame);
+                    break;
                 case TX2_DISTINGUISH_BUFF:
                 case TX2_DISTINGUISH_BIG_BUFF:
                     buffDistinguishProcess(frame);
