@@ -187,6 +187,8 @@ private:
 
     bool isReset_ = false;
 
+    bool _topRest = false;
+
     /**
      * 线程执行体
      */
@@ -212,7 +214,7 @@ private:
      * 装甲板识别流程
      * @param src 图片
      */
-    void armorDistinguishProcess(const cv::Mat &src);
+    void armorDistinguishProcess(const cv::Mat &src, bool topRest);
 
     /**
      * 获得下位机命令

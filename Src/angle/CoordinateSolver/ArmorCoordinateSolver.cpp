@@ -46,11 +46,12 @@ ArmorCoordinateSolver::ArmorCoordinateSolver(ArmorRealData armorRealData, Camera
     _coordinateFilter.setLimit(cv::Point3f(MAX_COORDINATE_XZ, MAX_COORDINATE_Y, MAX_COORDINATE_XZ), cv::Point3f(FILTER_COORDINATE_MAX, FILTER_COORDINATE_MAX, FILTER_COORDINATE_MAX));
 }
 
-ArmorCoordinateSolver::CoordinateStruct ArmorCoordinateSolver::calculateWorldCoordinate(cv::Point2f* vertices, float pitchAngle, float yawAngle, float shootSpeed, CarType carType,int targetWidth) {
+ArmorCoordinateSolver::CoordinateStruct ArmorCoordinateSolver::calculateWorldCoordinate(cv::Point2f* vertices, float pitchAngle, float yawAngle, float shootSpeed, CarType carType,int targetWidth, bool topFlag) {
     _pitchAngle = pitchAngle;
     _yawAngle = yawAngle;
     _targetWidth = targetWidth;
     _carType = carType;
+    _topFlag = topFlag;
 
     realCoordinateCalculate(vertices, carType);
 
@@ -174,6 +175,71 @@ ArmorCoordinateSolver::CoordinateStruct ArmorCoordinateSolver::mixCoordinate(flo
     
     //卡尔曼滤波后的坐标信息（x,z）
     //cout << "Kcoordinate: " << Kcoordinate << endl;
+
+        //小陀螺模式
+    if (_topFlag == true) {
+
+        if (_topFlag == true && _lastTopFlag == false) {
+            std::sort(_xHistory.begin(), _xHistory.end());
+            _minCoordinate = _xHistory[0];
+            _maxCoordinate = _xHistory[_xHistory.size() - 1];
+            _xHistory.clear();
+        }
+
+        float x = Kcoordinate.x;
+        float correct = 0.0;
+        if (x > _maxCoordinate) {
+            correct = x - _maxCoordinate;
+        }
+        else if (x < _minCoordinate) {
+            correct = x - _minCoordinate;
+        }
+
+        //cout << "correct: " << correct << endl;
+
+        _minCoordinate += correct;
+        _maxCoordinate += correct;
+        Kcoordinate.x = (_maxCoordinate + _minCoordinate) / 2;
+
+        _yHistory.push_back(Kcoordinate.y);
+        _zHistory.push_back(Kcoordinate.z);
+
+        //对Y进行平均滤波
+        if (_yHistory.size() > 20) {
+            //std::sort(_correctHistory.begin(), _correctHistory.end());
+            float sum = 0.0;
+            for (int i = 0; i < _yHistory.size(); i++) {
+                sum += _yHistory[i];
+            }
+            Kcoordinate.y = sum / _yHistory.size();
+            _yHistory.erase(_yHistory.begin());
+        }
+
+        //对Z进行平均滤波
+        if (_zHistory.size() > 20) {
+            //std::sort(_correctHistory.begin(), _correctHistory.end());
+            float sum = 0.0;
+            for (int i = 0; i < _zHistory.size(); i++) {
+                sum += _zHistory[i];
+            }
+            Kcoordinate.z = sum / _zHistory.size();
+            _zHistory.erase(_zHistory.begin());
+        }
+    }
+    else {
+        //小陀螺模式之前记录历史20个坐标
+        _xHistory.push_back(Kcoordinate.x);
+        _yHistory.push_back(Kcoordinate.y);
+        _zHistory.push_back(Kcoordinate.z);
+
+        if (_yHistory.size() > 20) {
+            _yHistory.erase(_yHistory.begin());
+        }
+
+        if (_zHistory.size() > 20) {
+            _zHistory.erase(_zHistory.begin());
+        }
+    }
 
     //装填固有坐标结构体
     _coordinateStruct.actualCoordinate = Kcoordinate;

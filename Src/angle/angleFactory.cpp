@@ -15,7 +15,7 @@ AngleFactory::AngleFactory(const string& serialNumber) {
     _buffCoordinateSolver = new BuffCoordinateSolver(ArmorDataFactory::getBuffArmor(),calibrationData);
 }
 
-void AngleFactory::calculateFinalResult(const cv::RotatedRect &targetRect, ArmorType armorType, DistinguishMode distinguishMode, CarType carType, float pitchAngle, float yawAngle,float shootSpeed,bool sameTargetFlag,int targetWidth) {
+void AngleFactory::calculateFinalResult(const cv::RotatedRect &targetRect, ArmorType armorType, DistinguishMode distinguishMode, CarType carType, float pitchAngle, float yawAngle,float shootSpeed,bool sameTargetFlag,int targetWidth, bool topFlag) {
 
     static cv::Point2f vertices[4];
     static cv::Point2f verticesCal[4];
@@ -58,11 +58,11 @@ void AngleFactory::calculateFinalResult(const cv::RotatedRect &targetRect, Armor
 
         if (armorType == ARMOR_SMALL) {
             _smallArmorCoordinateSolver->setLastDistinguishMode(distinguishMode);
-            _coordinateStruct = _smallArmorCoordinateSolver->calculateWorldCoordinate(vertices, pitchAngle, yawAngle, shootSpeed, carType,targetWidth);
+            _coordinateStruct = _smallArmorCoordinateSolver->calculateWorldCoordinate(vertices, pitchAngle, yawAngle, shootSpeed, carType,targetWidth, topFlag);
         }
         else {
             _bigArmorCoordinateSolver->setLastDistinguishMode(distinguishMode);
-            _coordinateStruct = _bigArmorCoordinateSolver->calculateWorldCoordinate(vertices, pitchAngle, yawAngle, shootSpeed, carType, targetWidth);
+            _coordinateStruct = _bigArmorCoordinateSolver->calculateWorldCoordinate(vertices, pitchAngle, yawAngle, shootSpeed, carType, targetWidth, topFlag);
         }
         break;
 

@@ -31,7 +31,7 @@ public:
      * @param yawAngle yaw轴角度
      */
 
-    void calculateFinalResult(const cv::RotatedRect& targetRect, ArmorType armorType, DistinguishMode distinguishMode, CarType carType, float pitchAngle, float yawAngle, float shootSpeed, bool sameTargetFlag, int targetWidth);
+    void calculateFinalResult(const cv::RotatedRect& targetRect, ArmorType armorType, DistinguishMode distinguishMode, CarType carType, float pitchAngle, float yawAngle, float shootSpeed, bool sameTargetFlag, int targetWidth, bool topFlag = false);
 
     /**
      * 装填发送数据
@@ -68,11 +68,16 @@ public:
         return _buffCoordinateSolver->getPronosisCoordinate();
     }
 
+    float get_yawAngle() {
+        return _yawAngle;
+    }
+
     static bool getBuffTargetNoChangeFlag();
 
 
 private:
 //    float _advanceValue;
+    float _yawAngle = 0.0;
     static bool _buffTargetNoChangeFlag;
     cv::Point2f _buffVertices[4];
     CarType _carType;

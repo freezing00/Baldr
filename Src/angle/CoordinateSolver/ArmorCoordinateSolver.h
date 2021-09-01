@@ -42,7 +42,7 @@ public:
      * @param yawAngle yaw角度
      * @param carType 车辆类型
      */
-    CoordinateStruct calculateWorldCoordinate(cv::Point2f* vertices, float pitchAngle, float yawAngle, float shootSpeed, CarType carType, int targetWidth);
+    CoordinateStruct calculateWorldCoordinate(cv::Point2f* vertices, float pitchAngle, float yawAngle, float shootSpeed, CarType carType, int targetWidth, bool topFlag = false);
 
     /**
      * 根据矩形四个点计算真实坐标
@@ -86,6 +86,17 @@ protected:
     cv::Point3f _lastWorldOriginInPZT;
     cv::Point3f _worldOriginInBarrel;   //世界坐标在平行相机坐标系位置(枪管出口为原点)
     cv::Point3f _worldOriginInCamera;   //世界坐标在相机坐标系位置(相机为原点)
+
+    bool _topFlag;
+    bool _lastTopFlag = false;
+
+    //top
+    vector<float> _xHistory;
+    vector<float> _yHistory;
+    vector<float> _zHistory;
+
+    float _maxCoordinate = 0.0;
+    float _minCoordinate = 0.0;
 
     CarType _carType;
     CoordinateStruct _coordinateStruct;

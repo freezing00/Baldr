@@ -60,7 +60,7 @@ public:
     ~ArmorDistinguish() {}
 
 	//装甲板识别过程
-	cv::RotatedRect process(const cv::Mat& src, EnemyColor enemyColor, CarType carType, bool isReset,DistinguishMode distinguishMode);
+	cv::RotatedRect process(const cv::Mat& src, EnemyColor enemyColor, CarType carType, bool isReset,DistinguishMode distinguishMode, float yawAngle, bool topRest);
 
     struct SampleDataStruct getSampleData() {
         return _sampleData;
@@ -97,6 +97,13 @@ public:
     int getTargetWidth() {
         return _resultRect.size.width;
     }
+
+    struct topData {
+        float maxAngle = 0.0;
+        float minAngle = 0.0;
+        bool topFlag = false;
+    }_topData;
+
 private:
     /**
     * 对图片进行ROI和二值化
@@ -254,6 +261,11 @@ private:
      */
     bool embeddedRectJudge(cv::RotatedRect r1, cv::RotatedRect r2);
 
+    /**
+     *小陀螺识别
+     */
+    void topProcess(float yawAngle);
+
     cv::Ptr<cv::ml::SVM> _svmHog;
 
     cv::Point2f _vertices[4];
@@ -266,6 +278,23 @@ private:
     bool _sampleCaptureState = false;
     bool _sameTargetFlag = false;
     bool _bigArmorFlag = false;                    //false是empty(),true是存在
+
+    bool _lastsameTargetFlag = false;
+    bool _topStatusFlag = false;
+    bool _lastTopStatusFlag = false;
+    bool _losesameFlag = false;
+    bool _findsameFlag = false;
+    bool _clockWiseTop = false;
+    bool _antiClockWiseTop = false;
+    int _cycleCount = 0;
+    int Clockwise = 0;								//顺时针旋转
+    int antiClockwise = 0;							//逆时针旋转
+    int _diffCount = 0;
+    int _trackCount = 0;
+    int _untrackCount = 0;
+    float _lastAngle = 0.0;
+    double _oneCycletime = 0;
+    double _topTime;
 
     int maxWeightNum;
     int _lost_cnt = 0;

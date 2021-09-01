@@ -116,8 +116,8 @@ void DecisionLevel::buffDistinguishProcess(const cv::Mat &src) {
 }
 
 //装甲板识别调用
-void DecisionLevel::armorDistinguishProcess(const cv::Mat &src) {
-    rect_ = armorDistinguish_.process(src, enemyColor_, carType_, isReset_, distinguishMode_);
+void DecisionLevel::armorDistinguishProcess(const cv::Mat &src, bool topRest) {
+    rect_ = armorDistinguish_.process(src, enemyColor_, carType_, isReset_, distinguishMode_, angleFactory_->get_yawAngle(), topRest);
     sameTargetFlag_ = armorDistinguish_.getSameTargetFlag();
     armorType_ = (ArmorType) armorDistinguish_.getArmorType();
     maxColor_ = armorDistinguish_.getMaxColor();
@@ -133,7 +133,8 @@ void DecisionLevel::armorDistinguishProcess(const cv::Mat &src) {
 
     //坐标解算
     if (rect_.size.width > 0) {
-        angleFactory_->calculateFinalResult(rect_, armorType_, distinguishMode_, carType_, stm32CmdData.pitchData.float_temp, stm32CmdData.yawData.float_temp, stm32CmdData.shootSpeed, sameTargetFlag_,targetWidth);
+        angleFactory_->calculateFinalResult(rect_, armorType_, distinguishMode_, carType_, stm32CmdData.pitchData.float_temp, stm32CmdData.yawData.float_temp, 
+                                            stm32CmdData.shootSpeed, sameTargetFlag_, targetWidth, armorDistinguish_._topData.topFlag);
         _tx2Command.captureCmd = true;
 
     } else {
@@ -193,6 +194,15 @@ void DecisionLevel::distinguishDataFinishProc() {
     } else {
         angleFactory_->resetAngleCalculateData(&_tx2Command);
     }
+
+    //小陀螺重置Flag
+    if (lastDistinguishMode_ == 0) {
+        _topRest = true;
+    }
+    else if (distinguishMode_ == 1) {
+        _topRest = false;
+    }
+
     //angleFactory_->resetAngleCalculateData(&_tx2Command);
     sendDecisionCmd();
     lastDistinguishMode_ = distinguishMode_;
@@ -218,7 +228,7 @@ void DecisionLevel::threadProcUseTestVideo() {
                 case TX2_STOP:
                     break;
                 case TX2_DISTINGUISH_ARMOR:
-                    armorDistinguishProcess(frame);
+                    armorDistinguishProcess(frame, _topRest);
                     break;
                 case TX2_DISTINGUISH_BUFF:
                 case TX2_DISTINGUISH_BIG_BUFF:
@@ -260,6 +270,7 @@ void DecisionLevel::threadProcUseActual() {
                     }
                     break;
                 case TX2_DISTINGUISH_ARMOR:
+                    armorDistinguishProcess(streamData_->getMatImage(), _topRest);
                 case TX2_DISTINGUISH_BUFF:
                 case TX2_DISTINGUISH_BIG_BUFF:
                     buffDistinguishProcess(streamData_->getMatImage());

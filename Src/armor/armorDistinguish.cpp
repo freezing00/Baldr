@@ -822,6 +822,149 @@ std::vector<ArmorDistinguish::ArmorStruct> ArmorDistinguish::getAttackOrder(std:
     }
 }
 
+//小陀螺识别
+void ArmorDistinguish::topProcess(float yawAngle) {
+
+    //寻找小陀螺
+    if (_topStatusFlag == false) {
+
+        //上一帧丢失装甲板后如果出现sameTargetFlag为false
+        if (_losesameFlag == true && _sameTargetFlag == false) {
+            _findsameFlag = true;
+        }
+        //计算1->0->.....->0->1->1周期时间间隔
+        else if (_findsameFlag == true && _sameTargetFlag == true && _lastsameTargetFlag == true) {
+            _oneCycletime = (double)((cv::getTickCount() - _topTime) / cv::getTickFrequency());
+            _losesameFlag = false;
+            _findsameFlag = false;
+            //std::cout << "oneCycletime:" << _oneCycletime << endl;
+        }
+        //上次sameTargetFlag为true而现在为false，则认为寻找下一块装甲板
+        else if (_losesameFlag == false && _lastsameTargetFlag == true && _sameTargetFlag == false) {
+            _topTime = (double)(cv::getTickCount());
+            _losesameFlag = true;
+        }
+
+        //如果一次1->0->.....->0->1->1周期大于一定范围认为小陀螺旋转1/4个周期
+        //周期间隔在0.02秒和0.6秒之间，则认为是正确
+        if (_oneCycletime > 0.02 && _oneCycletime < 0.6) {
+            _cycleCount++;
+            //如果上次角度大于现在角度，则认为是顺时针旋转
+            if (_lastAngle > yawAngle) {
+                Clockwise++;
+            }
+            //如果上次角度小于现在角度，则认为是逆时针旋转
+            else if (_lastAngle < yawAngle) {
+                antiClockwise++;
+            }
+            _oneCycletime = 0;
+            //std::cout << "_cycleCount: " << _cycleCount << endl;
+            //std::cout << "Clockwise: " << Clockwise << endl;
+            //std::cout << "antiClockwise: " << antiClockwise << endl;
+        }
+        else if (_oneCycletime != 0) {
+            _diffCount++;
+        }
+
+        if (Clockwise != 0 || antiClockwise != 0) {
+            //如果顺时针和逆时针前后出现都为1
+            if (Clockwise == antiClockwise == 1) {
+                _diffCount = 4;
+                Clockwise = 0;
+                antiClockwise = 0;
+            }
+        }
+
+        //不同计数等于4全部清零
+        if (_diffCount == 4) {
+            _oneCycletime = 0;
+            _cycleCount = 0;
+            _diffCount = 0;
+        }
+
+        //如果小陀螺旋转大于一个周期认为是小陀螺模式
+        if (_cycleCount == 3) {
+            if (Clockwise >= 2) {
+                _cycleCount = 0;
+                _diffCount = 0;
+                _oneCycletime = 0;
+                _topStatusFlag = true;
+                _clockWiseTop = true;
+                //std::cout << "clockwiseTop" << endl;
+            }
+            else if (antiClockwise >= 2) {
+                _cycleCount = 0;
+                _diffCount = 0;
+                _oneCycletime = 0;
+                _topStatusFlag = true;
+                _antiClockWiseTop = true;
+                //std::cout << "anti-clockwiseisTop" << endl;
+            }
+        }
+        else if (_cycleCount > 3 || Clockwise > 3 || antiClockwise > 3) {
+            _cycleCount = 0;
+            Clockwise = 0;
+            antiClockwise = 0;
+        }
+    }
+
+    //小陀螺模式
+    if (_topStatusFlag == true) {
+
+        //两帧之间角度发生大幅度跳变，就把跟踪计数清零
+        if (_clockWiseTop == true) {
+            if (yawAngle - _lastAngle > 4 && yawAngle - _lastAngle < 12) {
+                _trackCount = 0;
+                _untrackCount = 0;
+            }
+        }
+        else {
+            if (yawAngle - _lastAngle < -4 && yawAngle - _lastAngle > -12) {
+                _trackCount = 0;
+                _untrackCount = 0;
+            }
+        }
+
+        //上一帧为丢失而现在一帧为跟踪，就把跟踪计数清零
+        if (_sameTargetFlag == true && _lastsameTargetFlag == false) {
+            _trackCount = 0;
+            _untrackCount = 0;
+        }
+        //上一帧为跟踪而现在一帧为丢失，就把跟踪计数清零
+        else if (_sameTargetFlag == false && _lastsameTargetFlag == true) {
+            _trackCount = 0;
+            _untrackCount = 0;
+        }
+        //连续跟踪，增加一次跟踪计数
+        else if (_sameTargetFlag == true && _lastsameTargetFlag == true) {
+            _trackCount++;
+        }
+        //连续丢失，增加一次丢失跟踪计数
+        else if (_sameTargetFlag == false && _lastsameTargetFlag == false) {
+            _untrackCount++;
+        }
+
+        //在小陀螺模式，能连续跟随150帧以上，说明已经不是小陀螺
+        if (_trackCount > 150) {
+            _topStatusFlag = false;
+            _trackCount = 0;
+            _clockWiseTop = false;
+            _antiClockWiseTop = false;
+        }
+        //在小陀螺模式，能连续丢失150帧以上，说明已经不是小陀螺
+        else if (_untrackCount > 150) {
+            _topStatusFlag = false;
+            _untrackCount = 0;
+            _clockWiseTop = false;
+            _antiClockWiseTop = false;
+        }
+    }
+
+    _lastTopStatusFlag = _topStatusFlag;
+    _lastsameTargetFlag = _sameTargetFlag;
+    _lastAngle = yawAngle;
+}
+
 //得到最终识别目标
 cv::RotatedRect ArmorDistinguish::getResult() {
     if (armorStructs.empty()) {
@@ -887,7 +1030,7 @@ cv::RotatedRect ArmorDistinguish::getResult() {
 
 
 //识别过程函数
-cv::RotatedRect ArmorDistinguish::process(const cv::Mat& src, EnemyColor enemyColor, CarType carType, bool isReset, DistinguishMode distinguishMode) {
+cv::RotatedRect ArmorDistinguish::process(const cv::Mat& src, EnemyColor enemyColor, CarType carType, bool isReset, DistinguishMode distinguishMode, float yawAngle, bool topRest) {
     if (isReset) {
         _restoreRect = cv::Rect(0, 0, src.cols, src.rows);
     }
@@ -984,6 +1127,10 @@ cv::RotatedRect ArmorDistinguish::process(const cv::Mat& src, EnemyColor enemyCo
         _sameTargetFlag = false;
 #endif //USE_KCF
     }
+
+    topProcess(yawAngle);                        //识别小陀螺
+    _topData.topFlag = _topStatusFlag;
+
     possibleRects.clear();
     armorStructs.clear();
     allContours.clear();                                //轮廓
