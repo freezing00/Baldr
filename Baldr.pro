@@ -30,7 +30,8 @@ SOURCES += \
     Src/tool/autoSaveSample.cpp \
     Src/tool/fileOperation.cpp \
     Src/main.cpp \
-    Src/buff/buffTest.cpp
+    Src/buff/buffTest.cpp \
+    Src/angle/KalmanPredict/KalmanPredict.cpp
 
 HEADERS  += \
     Src/angle/angleFactory.h \
@@ -54,4 +55,5 @@ HEADERS  += \
     Src/tool/RMDefine.h \
     Src/tool/RMLOG.h \
     Src/tool/systemChoose.h \
-    Src/buff/buffTest.h
+    Src/buff/buffTest.h \
+    Src/angle/KalmanPredict/KalmanPredict.h
